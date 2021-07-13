@@ -17,9 +17,41 @@ void Checkout::addItemPrice(string item, int price) {
 }
 
 void Checkout::addItem(string item) {
+    items[item] += 1;
     total += prices[item];
 }
 
+void Checkout::calcaulteItem(string item, int itemCnt) {
+    map<string, Discount>::iterator discountIter;
+    discountIter = discounts.find(item);
+        if (discountIter != discounts.end()) {
+            Discount discount = discountIter->second;
+            if (itemCnt >= discount.numItem) {
+                int numOfDiscount = itemCnt / discount.numItem;
+                total += numOfDiscount * discount.discountPrice;
+                int remain = itemCnt % discount.numItem;
+                total += remain * prices[item];
+            } else {
+                total += itemCnt * prices[item];
+            }
+        } else {
+            total += itemCnt * prices[item];
+        }
+}
+
 int Checkout::calculateTotal() {
+    total = 0;
+    for (map<string, int>::iterator itemIter = items.begin(); itemIter !=items.end(); itemIter ++) {
+        string item = itemIter->first;
+        int itemCnt = itemIter->second;
+        calcaulteItem(item, itemCnt);
+    }
     return total;
+}
+
+void Checkout::addDiscount(string item, int numItem, int discountPrice) {
+    Discount discount;
+    discount.numItem = numItem;
+    discount.discountPrice = discountPrice;
+    discounts[item] = discount;
 }

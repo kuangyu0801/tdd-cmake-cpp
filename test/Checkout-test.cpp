@@ -38,3 +38,17 @@ TEST_F(CheckoutTests, CanGetTotalForMultipleItems) {
     int total = checkout.calculateTotal();
     ASSERT_EQ(3, total);
 }
+
+TEST_F(CheckoutTests, CanAddDiscount) {
+    checkout.addDiscount("Bread", 3, 2);
+}
+
+TEST_F(CheckoutTests, CanCalculateTotalWithDiscount) {
+    checkout.addItemPrice("Apple", 1);
+    checkout.addDiscount("Apple", 3, 2);
+    checkout.addItem("Apple");
+    checkout.addItem("Apple");
+    checkout.addItem("Apple");
+    int total = checkout.calculateTotal();
+    ASSERT_EQ(2, total);
+}
