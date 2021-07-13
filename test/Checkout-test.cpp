@@ -20,6 +20,7 @@ TEST_F(CheckoutTests, CanAddItemPrice) {
 }
 
 TEST_F(CheckoutTests, CanAddItem) {
+    checkout.addItemPrice("Bread", 1);
     checkout.addItem("Bread");
 }
 
@@ -51,4 +52,8 @@ TEST_F(CheckoutTests, CanCalculateTotalWithDiscount) {
     checkout.addItem("Apple");
     int total = checkout.calculateTotal();
     ASSERT_EQ(2, total);
+}
+
+TEST_F(CheckoutTests, ItermWithNoPriceThrowsException) {
+    ASSERT_THROW(checkout.addItem("Apple"), invalid_argument);
 }

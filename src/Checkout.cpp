@@ -17,8 +17,11 @@ void Checkout::addItemPrice(string item, int price) {
 }
 
 void Checkout::addItem(string item) {
+    map<string, int>::iterator priceIter = prices.find(item);
+    if (priceIter == prices.end()) {
+        throw invalid_argument("Item has no price");
+    }
     items[item] += 1;
-    total += prices[item];
 }
 
 void Checkout::calcaulteItem(string item, int itemCnt) {
