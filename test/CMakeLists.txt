@@ -5,6 +5,8 @@ set(BINARY ${CMAKE_PROJECT_NAME}_test)
 # LIST_DIRECTORIES false to omit directories
 file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cpp)
 
+message(${TEST_SOURCES})
+
 set(SOURCES ${TEST_SOURCES})
 
 add_executable(${BINARY} ${SOURCES})
