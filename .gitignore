@@ -33,3 +33,4 @@
 
 # Exclude build folder
 build
+.cache

@@ -1,5 +1,6 @@
 #include "Checkout.h"
 #include <string>
+#include <stdexcept>
 
 using namespace std;
 
